@@ -2,10 +2,9 @@
   "name": "rubble-tech-website",
   "version": "1.0.0",
   "description": "Professional website for Rubble Tech company",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "netlify dev",
+    "build": "echo 'Netlify will handle the build'"
   },
   "keywords": [
     "rubble-tech",
