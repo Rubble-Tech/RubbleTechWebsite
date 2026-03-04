@@ -54,16 +54,21 @@ function showSection(sectionId) {
     const selectedSection = document.getElementById(sectionId);
     if (selectedSection) {
         selectedSection.classList.add('active');
+        updateActiveNav(sectionId);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+}
+
+function updateActiveNav(sectionId) {
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === sectionId);
+    });
 }
 
 // Scroll to section
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        navLinks.forEach(l => l.classList.remove('active'));
-        document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
         showSection(sectionId);
     }
 }
@@ -133,24 +138,11 @@ contactForm.addEventListener('submit', async (e) => {
 
 // Update active nav link on scroll
 window.addEventListener('scroll', () => {
-    let current = '';
-    const sections = document.querySelectorAll('.section');
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.dataset.section === current) {
-            link.classList.add('active');
-        }
-    });
+    const activeSection = document.querySelector('.section.active');
+    updateActiveNav(activeSection ? activeSection.id : 'home');
 });
+
+updateActiveNav('home');
 
 // Close menu when clicking outside
 document.addEventListener('click', (e) => {
